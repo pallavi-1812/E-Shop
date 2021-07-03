@@ -1,11 +1,13 @@
 import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from "@material-ui/core"
-import { ShoppingCart } from "@material-ui/icons"
+import { ShoppingCart } from "@material-ui/icons";
+import { Link, useLocation } from "react-router-dom";
 import useStyles from "./styles";
 import navImg from '../../assets/navImg.jpg'
 
 const Navbar = ({ totalItems }) => {
 
     const classes = useStyles();
+    const location = useLocation()
 
     return (
         <>
@@ -16,13 +18,15 @@ const Navbar = ({ totalItems }) => {
                         Commerce.js
                     </Typography>
                     <div className={classes.grow} />
-                    <div className={classes.menuButton}>
-                        <IconButton color="inherit" aria-label="Show cart items">
-                            <Badge badgeContent={totalItems} color="secondary">
-                                <ShoppingCart />
-                            </Badge>
-                        </IconButton>
-                    </div>
+                    {(location.pathname === "/") && (
+                        <div className={classes.menuButton}>
+                            <IconButton component={Link} to="/cart" color="inherit" aria-label="Show cart items">
+                                <Badge badgeContent={totalItems} color="secondary">
+                                    <ShoppingCart />
+                                </Badge>
+                            </IconButton>
+                        </div>
+                    )}
                 </Toolbar>
             </AppBar>
         </>
